@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Datacrédito</title>
+</head>
+<body>
+    <h1>Consulta Datacrédito</h1>
+    <input type="text" id="documento" placeholder="Ingrese su número de documento">
+    <button onclick="consultar()">Consultar</button>
+    <pre id="resultado"></pre>
+
+    <script>
+        async function consultar() {
+            const documento = document.getElementById('documento').value;
+            const response = await fetch('http://localhost:8000/consulta-datacredito', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ documento })
+            });
+            const resultado = await response.json();
+            document.getElementById('resultado').textContent = JSON.stringify(resultado, null, 2);
+        }
+    </script>
+</body>
+</html>
